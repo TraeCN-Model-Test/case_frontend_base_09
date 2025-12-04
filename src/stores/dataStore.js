@@ -17,18 +17,11 @@ export const useDataStore = defineStore('dataStore', {
       this.error = null
       try {
         console.log('Fetching todos with params:', params)
-        // 模拟数据
-        const mockTodos = [
-          { id: 1, title: '完成Pinia学习', completed: false },
-          { id: 2, title: '编写模拟数据逻辑', completed: true },
-          { id: 3, title: '测试数据获取功能', completed: false }
-        ];
-        // 模拟网络延迟
-        await new Promise(resolve => setTimeout(resolve, 500));
-        console.log('Todos response:', mockTodos)
+        const response = await getTodos(params)
+        console.log('Todos response:', response)
         
         // 确保数据是数组格式
-        this.todos = Array.isArray(mockTodos) ? mockTodos : []
+        this.todos = Array.isArray(response) ? response : []
         
         console.log('Todos stored:', this.todos)
       } catch (err) {
@@ -46,18 +39,11 @@ export const useDataStore = defineStore('dataStore', {
       this.error = null
       try {
         console.log('Fetching transactions with params:', params)
-        // 模拟数据
-        const mockTransactions = [
-          { id: 1, type: 'income', amount: 1000, description: '工资收入', date: '2025-12-01' },
-          { id: 2, type: 'expense', amount: 200, description: '餐饮费用', date: '2025-12-02' },
-          { id: 3, type: 'expense', amount: 500, description: '购物支出', date: '2025-12-03' }
-        ];
-        // 模拟网络延迟
-        await new Promise(resolve => setTimeout(resolve, 500));
-        console.log('Transactions response:', mockTransactions)
+        const response = await getTransactions(params)
+        console.log('Transactions response:', response)
         
         // 确保数据是数组格式
-        this.transactions = Array.isArray(mockTransactions) ? mockTransactions : []
+        this.transactions = Array.isArray(response) ? response : []
         
         console.log('Transactions stored:', this.transactions)
       } catch (err) {
@@ -75,17 +61,11 @@ export const useDataStore = defineStore('dataStore', {
       this.error = null
       try {
         console.log('Fetching reports with params:', params)
-        // 模拟数据
-        const mockReports = [
-          { id: 1, title: '月度报告', period: '2025-12', totalIncome: 5000, totalExpense: 2000 },
-          { id: 2, title: '季度报告', period: '2025-Q4', totalIncome: 15000, totalExpense: 6000 }
-        ];
-        // 模拟网络延迟
-        await new Promise(resolve => setTimeout(resolve, 500));
-        console.log('Reports response:', mockReports)
+        const response = await getReports(params)
+        console.log('Reports response:', response)
         
         // 确保数据是数组格式
-        this.reports = Array.isArray(mockReports) ? mockReports : []
+        this.reports = Array.isArray(response) ? response : []
         
         console.log('Reports stored:', this.reports)
       } catch (err) {
