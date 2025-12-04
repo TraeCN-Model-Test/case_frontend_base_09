@@ -2,12 +2,12 @@
 
 ## 项目简介
 
-CashLog是一个基于Vue 3 + Vite + Element Plus构建的轻量化本地记账/待办管理系统。本项目采用渐进式开发方式，当前版本专注于实现简单但美观的交易记录查询功能。
+CashLog是一个基于Vue 3 + Vite + Element Plus构建的轻量化本地记账/待办管理系统。本项目采用渐进式开发方式，当前版本专注于实现简单但美观的交易记录查询功能，并提供完整的单元测试覆盖。
 
 ## 技术栈
 
-- **前端框架**: Vue 3.5.25
-- **构建工具**: Vite 7.2.6
+- **前端框架**: Vue 3.5.24
+- **构建工具**: Vite 7.2.4
 - **UI组件库**: Element Plus 2.11.9
 - **路由管理**: Vue Router 4.6.3
 - **状态管理**: Pinia 3.0.4
@@ -41,31 +41,53 @@ CashLog是一个基于Vue 3 + Vite + Element Plus构建的轻量化本地记账/
 ## 项目结构
 
 ```
-cash_frontend/
+cash_frontend_base_09/
 ├── public/                 # 静态资源
 ├── src/
+│   ├── api/               # API接口
 │   ├── assets/            # 资源文件
 │   ├── components/        # 公共组件
-│   │   ├── common/        # 通用组件
-│   │   └── layout/        # 布局组件
-│   ├── views/             # 页面视图
+│   │   ├── DataList.vue   # 数据列表组件
+│   │   ├── FilterForm.vue # 筛选表单组件
+│   │   ├── StatusTag.vue  # 状态标签组件
+│   │   └── TagDisplay.vue # 标签显示组件
 │   ├── stores/            # Pinia状态管理
-│   ├── services/          # API服务
-│   ├── utils/             # 工具函数
+│   │   └── dataStore.js   # 数据状态管理
 │   ├── styles/            # 全局样式
+│   │   ├── global.scss    # 全局样式
+│   │   └── variables.scss # SCSS变量
+│   ├── utils/             # 工具函数
+│   │   ├── dataTransform.js # 数据转换工具
+│   │   └── request.js     # 请求封装
+│   ├── views/             # 页面视图
+│   │   └── CashLogView.vue # 现金日志视图
 │   ├── App.vue            # 根组件
-│   └── main.js            # 入口文件
+│   ├── main.js            # 入口文件
+│   └── style.css          # 基础样式
 ├── tests/                 # 测试文件
 │   ├── unit/              # 单元测试
+│   │   ├── api/           # API测试
+│   │   ├── components/    # 组件测试
+│   │   ├── stores/        # Store测试
+│   │   └── utils/         # 工具函数测试
 │   └── e2e/               # 端到端测试
+├── coverage/              # 测试覆盖率报告
 ├── docs/                  # 文档
-└── vite.config.js         # Vite配置
+│   └── 后端接口文档.md     # 后端API文档
+├── vite.config.js         # Vite配置
+└── vitest.config.js       # Vitest配置
 ```
 
 ## 后端API接口
 
 - `GET /api/transactions/` - 获取交易记录列表（支持query参数：month，格式 YYYY-MM）
 - `GET /api/reports/summary/` - 获取收支汇总信息（支持query参数：month，格式 YYYY-MM）
+- `GET /api/todos/` - 获取待办事项列表
+- `GET /api/reports/` - 生成多维度收支报表
+- `POST /api/data/backup` - 创建数据库备份
+- `POST /api/data/restore` - 从备份文件恢复数据库
+
+详细的API文档请参考 [后端接口文档.md](docs/后端接口文档.md)
 
 ## 开发指南
 
@@ -132,6 +154,7 @@ npm run test:coverage
    - 覆盖Pinia Store（收支状态、筛选逻辑）
    - Axios请求封装（拦截器、接口调用）
    - 组件核心方法（月份筛选、统计计算）
+   - 数据转换工具函数
 
 2. **组件测试**
    - 验证页面渲染（导航栏、表格、筛选器、统计卡片）
@@ -152,7 +175,7 @@ npm run test:coverage
 ## 开发计划
 
 - [x] 第一阶段：实现交易记录查询功能
-- [ ] 第二阶段：添加待办事项管理功能
+- [x] 第二阶段：添加待办事项管理功能
 - [ ] 第三阶段：完善报表功能
 - [ ] 第四阶段：添加数据导入导出功能
 
